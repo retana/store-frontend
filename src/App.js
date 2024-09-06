@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './components/Login';
+import Home from './components/Home';   
+import Cart from './components/Cart';
+import Orders from './components/Orders';
+import Profile from './components/Profile'; // Asegúrate de importar el componente Profile
 
 function App() {
+  const [cartItems, setCartItems] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        {/* Define la ruta principal como la página de Login */}
+        <Route path="/" element={<Login />} />
+        {/* Define otras rutas, por ejemplo, una vez que el usuario haya iniciado sesión */}
+        <Route path="/home" element={<Home setCartItems={setCartItems} />} />
+        <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/profile" element={<Profile />} /> 
+
+      </Routes>
+    </Router>
   );
 }
 
