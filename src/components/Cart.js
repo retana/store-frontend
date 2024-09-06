@@ -57,9 +57,7 @@ const Cart = ({ cartItems, setCartItems }) => {
 
       // Preparar el payload
       const productIds = cartItems.map(item => item.id).join(',');
-      const totalAmount = cartItems.reduce((total, item) => total + (item.price || 0) * (item.quantity || 1), 0);
-
-      console.log('PRODUCTOS: '+productIds)
+      const totalAmount = cartItems.reduce((total, item) => total + (item.amount || 0) * (item.quantity || 1), 0);
 
       const orderPayload = {
         customerId: customerId,
@@ -98,7 +96,7 @@ const Cart = ({ cartItems, setCartItems }) => {
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + (item.price || 0) * (item.quantity || 1), 0).toFixed(2);
+    return cartItems.reduce((total, item) => total + (item.amount || 0) * (item.quantity || 1), 0).toFixed(2);
   };
 
   return (
@@ -144,16 +142,16 @@ const Cart = ({ cartItems, setCartItems }) => {
                       </TableCell>
                       <TableCell>{product.name}</TableCell>
                       <TableCell>{product.description}</TableCell>
-                      <TableCell>${(product.price || 0).toFixed(2)}</TableCell>
+                      <TableCell>Q.{(product.amount || 0).toFixed(2)}</TableCell>
                       <TableCell>{product.quantity || 1}</TableCell>
-                      <TableCell>${((product.price || 0) * (product.quantity || 1)).toFixed(2)}</TableCell>
+                      <TableCell>Q.{((product.amount || 0) * (product.quantity || 1)).toFixed(2)}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </TableContainer>
             <Box sx={{ marginTop: 2 }}>
-              <Typography variant="h6">Total: ${calculateTotal()}</Typography>
+              <Typography variant="h6">Total: Q{calculateTotal()}</Typography>
             </Box>
           </>
         )}
